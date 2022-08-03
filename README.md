@@ -1,2 +1,2 @@
-# sobieszewo
+# Sobieszewo
 simple interpreter
