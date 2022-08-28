@@ -1,3 +1,19 @@
+def file_transport():
+    """
+    Convert argv into array
+    """
+    from sys import argv
+    name = []
+    if(len(argv) == 1):
+        print("Set arguments")
+        exit()
+    for i in range(len(argv)):
+        if(i == 0):
+            pass
+        else:
+            name.append(argv[i])
+    return name[0]
+
 def file_decode_commands(list1):
     """
     it decode commands
@@ -124,6 +140,6 @@ def print_something(something):
 
 
 if(__name__ == "__main__"):
-    commands=open_file(input("file name\n:"))
+    commands=open_file(file_transport())
     print_something(file_decode_commands(commands))
     
