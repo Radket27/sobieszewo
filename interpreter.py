@@ -46,7 +46,14 @@ def commands_1(main,var,last_var,set_var,set_index_var):
     main_split = main.split(' ',2)
     command = main_split[0]
     main_text = main_split[1]
+    #plugin
+    from plugin import plugin, empty
+    if(empty() == False):
+        var,last_var,set_var,set_index_var = plugin(command,main_text,var,last_var,set_var,set_index_var)
     
+    
+
+
     if(command == 'SET'):
         try:
             before = var.index(main_text)
