@@ -51,7 +51,6 @@ def commands_1(main,var,last_var,set_var,set_index_var):
     if(empty() == False):
         var,last_var,set_var,set_index_var = plugin(command,main_text,var,last_var,set_var,set_index_var)
     
-    
 
 
     if(command == 'SET'):
@@ -65,7 +64,10 @@ def commands_1(main,var,last_var,set_var,set_index_var):
             set_var = main_text
             set_index_var = var.index(set_var)
     elif(command == 'ADD'):
-        main_text = float(main_text)
+        try:
+            main_text = float(main_text)
+        except ValueError:
+            main_text = str(main_text)
         end = True
         try:
             var[set_index_var+1]
@@ -76,16 +78,32 @@ def commands_1(main,var,last_var,set_var,set_index_var):
             elif(type(main_text) == type(0.0)):
                 var.append(float(main_text))
                 end = False
+            elif(type(main_text) == type("A")):
+                if(type(var[(var.index(main_text))+1]) == type(0)):
+                    var.append(int(var[(var.index(main_text))+1]))
+                    end = False
+                elif(type(var[(var.index(main_text))+1]) == type(0.0)):
+                    var.append(float(var[(var.index(main_text))+1]))
+                    end = False
         if(end == True):
-            if(type(var[set_index_var+1]) == type(0)):
-                var[set_index_var+1] = (var[set_index_var+1] + int(main_text))
-            elif(type(var[set_index_var+1]) == type(0.0)):
-                var[set_index_var+1] = (var[set_index_var+1] + float(main_text))
+            try:
+                if(type(var[set_index_var+1]) == type(0)):
+                    var[set_index_var+1] = (var[set_index_var+1] + int(main_text))
+                elif(type(var[set_index_var+1]) == type(0.0)):
+                    var[set_index_var+1] = (var[set_index_var+1] + float(main_text))
+            except ValueError:
+                if(type(var[(var.index(main_text))+1]) == type(0)):
+                    var[set_index_var+1] = (var[set_index_var+1] + int(var[(var.index(main_text))+1]))
+                elif(type(var[(var.index(main_text))+1]) == type(0.0)):
+                    var[set_index_var+1] = (var[set_index_var+1] + float(var[(var.index(main_text))+1]))
     elif(command == 'PRT'):
         before = var.index(main_text)
         last_var.append(str(var[before+1]))
     elif(command == 'SUB'):
-        main_text = float(main_text)
+        try:
+            main_text = float(main_text)
+        except ValueError:
+            main_text = str(main_text)
         end = True
         try:
             var[set_index_var+1]
@@ -96,13 +114,29 @@ def commands_1(main,var,last_var,set_var,set_index_var):
             elif(type(main_text) == type(0.0)):
                 var.append(float(main_text))
                 end = False
+            elif(type(main_text) == type("A")):
+                if(type(var[(var.index(main_text))+1]) == type(0)):
+                    var.append(int(var[(var.index(main_text))+1]))
+                    end = False
+                elif(type(var[(var.index(main_text))+1]) == type(0.0)):
+                    var.append(float(var[(var.index(main_text))+1]))
+                    end = False
         if(end == True):
-            if(type(var[set_index_var+1]) == type(0)):
-                var[set_index_var+1] = (var[set_index_var+1] - int(main_text))
-            elif(type(var[set_index_var+1]) == type(0.0)):
-                var[set_index_var+1] = (var[set_index_var+1] - float(main_text))
+            try:
+                if(type(var[set_index_var+1]) == type(0)):
+                    var[set_index_var+1] = (var[set_index_var+1] - int(main_text))
+                elif(type(var[set_index_var+1]) == type(0.0)):
+                    var[set_index_var+1] = (var[set_index_var+1] - float(main_text))
+            except ValueError:
+                if(type(var[(var.index(main_text))+1]) == type(0)):
+                    var[set_index_var+1] = (var[set_index_var+1] - int(var[(var.index(main_text))+1]))
+                elif(type(var[(var.index(main_text))+1]) == type(0.0)):
+                    var[set_index_var+1] = (var[set_index_var+1] - float(var[(var.index(main_text))+1]))
     elif(command == 'MUL'):
-        main_text = float(main_text)
+        try:
+            main_text = float(main_text)
+        except ValueError:
+            main_text = str(main_text)
         end = True
         try:
             var[set_index_var+1]
@@ -113,13 +147,29 @@ def commands_1(main,var,last_var,set_var,set_index_var):
             elif(type(main_text) == type(0.0)):
                 var.append(float(main_text))
                 end = False
+            elif(type(main_text) == type("A")):
+                if(type(var[(var.index(main_text))+1]) == type(0)):
+                    var.append(int(var[(var.index(main_text))+1]))
+                    end = False
+                elif(type(var[(var.index(main_text))+1]) == type(0.0)):
+                    var.append(float(var[(var.index(main_text))+1]))
+                    end = False
         if(end == True):
-            if(type(var[set_index_var+1]) == type(0)):
-                var[set_index_var+1] = (var[set_index_var+1] * int(main_text))
-            elif(type(var[set_index_var+1]) == type(0.0)):
-                var[set_index_var+1] = (var[set_index_var+1] * float(main_text))
+            try:
+                if(type(var[set_index_var+1]) == type(0)):
+                    var[set_index_var+1] = (var[set_index_var+1] * int(main_text))
+                elif(type(var[set_index_var+1]) == type(0.0)):
+                    var[set_index_var+1] = (var[set_index_var+1] * float(main_text))
+            except ValueError:
+                if(type(var[(var.index(main_text))+1]) == type(0)):
+                    var[set_index_var+1] = (var[set_index_var+1] * int(var[(var.index(main_text))+1]))
+                elif(type(var[(var.index(main_text))+1]) == type(0.0)):
+                    var[set_index_var+1] = (var[set_index_var+1] * float(var[(var.index(main_text))+1]))
     elif(command == 'DIV'):
-        main_text = float(main_text)
+        try:
+            main_text = float(main_text)
+        except ValueError:
+            main_text = str(main_text)
         end = True
         try:
             var[set_index_var+1]
@@ -130,11 +180,24 @@ def commands_1(main,var,last_var,set_var,set_index_var):
             elif(type(main_text) == type(0.0)):
                 var.append(float(main_text))
                 end = False
+            elif(type(main_text) == type("A")):
+                if(type(var[(var.index(main_text))+1]) == type(0)):
+                    var.append(int(var[(var.index(main_text))+1]))
+                    end = False
+                elif(type(var[(var.index(main_text))+1]) == type(0.0)):
+                    var.append(float(var[(var.index(main_text))+1]))
+                    end = False
         if(end == True):
-            if(type(var[set_index_var+1]) == type(0)):
-                var[set_index_var+1] = (var[set_index_var+1] / int(main_text))
-            elif(type(var[set_index_var+1]) == type(0.0)):
-                var[set_index_var+1] = (var[set_index_var+1] / float(main_text))
+            try:
+                if(type(var[set_index_var+1]) == type(0)):
+                    var[set_index_var+1] = (var[set_index_var+1] / int(main_text))
+                elif(type(var[set_index_var+1]) == type(0.0)):
+                    var[set_index_var+1] = (var[set_index_var+1] / float(main_text))
+            except ValueError:
+                if(type(var[(var.index(main_text))+1]) == type(0)):
+                    var[set_index_var+1] = (var[set_index_var+1] / int(var[(var.index(main_text))+1]))
+                elif(type(var[(var.index(main_text))+1]) == type(0.0)):
+                    var[set_index_var+1] = (var[set_index_var+1] / float(var[(var.index(main_text))+1]))
     
     return var,last_var,set_var,set_index_var
 
