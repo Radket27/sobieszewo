@@ -28,8 +28,7 @@ def file_decode_commands(list1):
     end_logical = False
     while(i < len(list1)):
         has = list1[i]
-        var, last_var, set_var, set_index_var, list1, set_logical, end_logical = commands_1(has,var,last_var,set_var,set_index_var,list1,i,set_logical, end_logical)
-        i += 1
+        var, last_var, set_var, set_index_var, list1, i, set_logical, end_logical = commands_1(has,var,last_var,set_var,set_index_var,list1,i,set_logical, end_logical)
     return last_var
 
 def open_file(arg):
@@ -47,6 +46,7 @@ def commands_1(main,var,last_var,set_var,set_index_var,code,location,set_logical
     """
     standard commands input/output
     """
+    location_change = False
     main_split = main.split(' ',2)
     command = main_split[0]
     main_text = main_split[1]
@@ -213,10 +213,10 @@ def commands_1(main,var,last_var,set_var,set_index_var,code,location,set_logical
             if(float(var[(var.index(main_text))+1]) < float(var[set_index_var+1])):
                 end_logical = True
         if(end_logical == False):
-            i = location
-            while((code[i] != (f'ELS {set_logical}')) or (code[i] != f'SEE {set_logical}')):
-                code.pop(i)
-                if(code[i] == f'ELS {set_logical}' or code[i] == f'SEE {set_logical}'):
+            while((code[location] != (f'ELS {set_logical}')) or (code[location] != f'SEE {set_logical}')):
+                location += 1
+                location_change = True
+                if(code[location] == f'ELS {set_logical}' or code[location] == f'SEE {set_logical}'):
                     break
     elif(command == 'MOQ'):
         try:
@@ -228,10 +228,10 @@ def commands_1(main,var,last_var,set_var,set_index_var,code,location,set_logical
             if(float(var[(var.index(main_text))+1]) <= float(var[set_index_var+1])):
                 end_logical = True
         if(end_logical == False):
-            i = location
-            while((code[i] != (f'ELS {set_logical}')) or (code[i] != f'SEE {set_logical}')):
-                code.pop(i)
-                if(code[i] == f'ELS {set_logical}' or code[i] == f'SEE {set_logical}'):
+            while((code[location] != (f'ELS {set_logical}')) or (code[location] != f'SEE {set_logical}')):
+                location += 1
+                location_change = True
+                if(code[location] == f'ELS {set_logical}' or code[location] == f'SEE {set_logical}'):
                     break
     elif(command == 'SML'):
         try:
@@ -243,10 +243,10 @@ def commands_1(main,var,last_var,set_var,set_index_var,code,location,set_logical
             if(float(var[(var.index(main_text))+1]) > float(var[set_index_var+1])):
                 end_logical = True
         if(end_logical == False):
-            i = location
-            while((code[i] != (f'ELS {set_logical}')) or (code[i] != f'SEE {set_logical}')):
-                code.pop(i)
-                if(code[i] == f'ELS {set_logical}' or code[i] == f'SEE {set_logical}'):
+            while((code[location] != (f'ELS {set_logical}')) or (code[location] != f'SEE {set_logical}')):
+                location += 1
+                location_change = True
+                if(code[location] == f'ELS {set_logical}' or code[location] == f'SEE {set_logical}'):
                     break
     elif(command == 'SMQ'):
         try:
@@ -258,10 +258,10 @@ def commands_1(main,var,last_var,set_var,set_index_var,code,location,set_logical
             if(float(var[(var.index(main_text))+1]) >= float(var[set_index_var+1])):
                 end_logical = True
         if(end_logical == False):
-            i = location
-            while((code[i] != (f'ELS {set_logical}')) or (code[i] != f'SEE {set_logical}')):
-                code.pop(i)
-                if(code[i] == f'ELS {set_logical}' or code[i] == f'SEE {set_logical}'):
+            while((code[location] != (f'ELS {set_logical}')) or (code[location] != f'SEE {set_logical}')):
+                location += 1
+                location_change = True
+                if(code[location] == f'ELS {set_logical}' or code[location] == f'SEE {set_logical}'):
                     break
     elif(command == 'EQL'):
         try:
@@ -273,31 +273,32 @@ def commands_1(main,var,last_var,set_var,set_index_var,code,location,set_logical
             if(float(var[(var.index(main_text))+1]) == float(var[set_index_var+1])):
                 end_logical = True
         if(end_logical == False):
-            i = location
-            while((code[i] != (f'ELS {set_logical}')) or (code[i] != f'SEE {set_logical}')):
-                code.pop(i)
-                if(code[i] == f'ELS {set_logical}' or code[i] == f'SEE {set_logical}'):
+            while((code[location] != (f'ELS {set_logical}')) or (code[location] != f'SEE {set_logical}')):
+                location += 1
+                location_change = True
+                if(code[location] == f'ELS {set_logical}' or code[location] == f'SEE {set_logical}'):
                     break
     elif(command == 'IFF'):
         set_logical = main_text
     elif(command == 'ELS'):
         if(end_logical == True):
-            i = location
             end1 = False
-            while(code[i] != f'SEE {set_logical}'):
-                code.pop(i)
-                if(code[i] == f'SEE {set_logical}'):
+            while(code[location] != f'SEE {set_logical}'):
+                location += 1
+                location_change = True
+                if(code[location] == f'SEE {set_logical}'):
                     break
     elif(command == 'GOT'):
-        before = int(main_text)
-        x = location - before
-        for i in range(x+1):
-            code.insert(location+1+i,code[before+i])
+        location = int(main_text)
+        location_change = True
     elif(command == 'SEE'):
         end_logical = False
     elif(command == 'NTEX'):
         print(str(main_text))
-    return var,last_var,set_var,set_index_var,code,set_logical,end_logical
+
+    if(location_change == False):
+        location += 1
+    return var,last_var,set_var,set_index_var,code,location,set_logical,end_logical
 
 def print_something(something):
     """
