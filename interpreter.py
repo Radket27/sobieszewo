@@ -42,6 +42,42 @@ def open_file(arg):
     files.close()
     return loop
 
+def interactive():
+    ending = False
+    list1 = []
+    var = []
+    last_var = []
+    set_var = ''
+    set_index_var = 0
+    i = 0
+    set_logical = ''
+    end_logical = False
+    while(ending != True):
+        instruction = str(input("> "))
+        if((instruction == 'quit') or (instruction == 'exit')):
+            ending = True
+        else:
+            list1.append(instruction)
+            
+            while(i < len(list1)):
+                has = list1[i]
+                var, last_var, set_var, set_index_var, list1, i, set_logical, end_logical = commands_1(has,var,last_var,set_var,set_index_var,list1,i,set_logical, end_logical)
+    return last_var
+
+def editor():
+    loop = []
+    ending = False
+    while(ending != True):
+        instruction = str(input("> "))
+        if(instruction == 'run'):
+            ending = True
+        else:
+            loop.append(instruction.rstrip())
+    return loop
+
+def print_NPRT(print_var):
+    print(print_var)
+
 def commands_1(main,var,last_var,set_var,set_index_var,code,location,set_logical,end_logical):
     """
     standard commands input/output
@@ -103,7 +139,7 @@ def commands_1(main,var,last_var,set_var,set_index_var,code,location,set_logical
         last_var.append(str(var[before+1]))
     elif(command == 'NPRT'):
         before = var.index(main_text)
-        print(str(var[before+1]))
+        print_NPRT(str(var[before+1]))
     elif(command == 'SUB'):
         try:
             main_text = float(main_text)
@@ -309,6 +345,14 @@ def print_something(something):
 
 
 if(__name__ == "__main__"):
-    commands=open_file(file_transport())
-    print_something(file_decode_commands(commands))
+    file_name = file_transport()
+    if(file_name == '-i'):
+        print_var = interactive()
+        print_something(print_var)
+    elif(file_name == '-e'):
+        instruction = editor()
+        print_something(file_decode_commands(instruction))
+    else:
+        commands=open_file(file_name)
+        print_something(file_decode_commands(commands))
     
