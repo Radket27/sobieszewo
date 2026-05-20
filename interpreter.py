@@ -75,6 +75,9 @@ def editor():
             loop.append(instruction.rstrip())
     return loop
 
+def print_NPRT(print_var):
+    print(print_var)
+
 def commands_1(main,var,last_var,set_var,set_index_var,code,location,set_logical,end_logical):
     """
     standard commands input/output
@@ -136,7 +139,7 @@ def commands_1(main,var,last_var,set_var,set_index_var,code,location,set_logical
         last_var.append(str(var[before+1]))
     elif(command == 'NPRT'):
         before = var.index(main_text)
-        print(str(var[before+1]))
+        print_NPRT(str(var[before+1]))
     elif(command == 'SUB'):
         try:
             main_text = float(main_text)
