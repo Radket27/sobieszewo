@@ -6,7 +6,7 @@ Simple interpreter
 python interpreter.py code.sobieszewo
 ```
 
-You can write a simple Fibonacci sequence code
+You can write a simple Fibonacci sequence program.
 ```
 SET X
 ADD 0
@@ -26,4 +26,15 @@ NPRT Y
 NPRT X
 GOT 4
 SEE A
+```
+
+You can also run sobieszewo in editor and interactive mode.
+
+Editor mode:
+```
+python interpreter.py -e
+```
+Interactive mode:
+```
+python interpreter.py -i
 ```
